@@ -1,0 +1,92 @@
+
+
+# My most used conda commands:
+
+
+    0. To add or remove, custom envs location:
+
+        # To add your custom location as conda environment location:
+
+            ==> conda config --add envs_dirs /home/username/Desktop/venv
+            eg: ==> conda config --add envs_dirs /home/dhiraj/Desktop/conda_envs
+
+
+        # To remove your custom conda environment location:
+
+            ==> conda config --remove envs_dirs /home/username/Desktop/venv
+            eg: ==> conda config --remove envs_dirs /home/dhiraj/Desktop/conda_envs
+
+
+
+    1. Command to create conda virtual environment:
+
+        ==> conda create --n venv
+        eg: conda create --n jupyter_venv
+
+
+    2. Command to create conda virtual environment with specific "python version":
+
+        ==> conda create --n venv python=version
+        eg: ==> conda create --n jupyter_venv python=3.9.16
+
+
+    3. Comamnd to create virtual env & install all dependencies/packages/requirements from a .txt/.yml file:
+
+        ==> conda env create -n venv --file environment.yml
+        eg: ==> conda env create -n pythonic_env --file environment.yml
+        OR eg: ==> eg: ==> conda env create -n pythonic_env --file environment.txt
+
+
+    4. Activate conda virtual environment:
+
+        ==> conda activate venv
+        ==> coda activate jupyter_venv
+
+
+    5. Deactivate conda virtual environment:
+
+        ==> conda deactivate
+
+
+    6. List out all the packages installed on any virtual environment:
+
+        ==> conda list
+
+
+    7. List out all virtual environments currently managed by conda:
+
+        ==> conda env list
+
+
+    8. Install a particular package:
+
+        To install specific version package:
+            ==> conda install jupyterlab=4.0.3
+
+
+    9. To uninstall a particular package:
+
+        ==> conda uninstall package_name
+        eg: ==> conda uninstall jupyterlab
+
+
+    10. Delete a virtual environment by name:
+
+        conda remove --name venv --all
+        OR 
+        ==> conda remove -n venv --all
+        eg: ==> conda remove -n python_env --all
+
+
+
+    11. Command to export requirements/environment packages:
+
+        NOTE: Before exporting dependencies, u should be inside that particular virtual environment.
+
+
+        ==> conda env export --no-builds > environment.yml
+
+        OR
+
+        ==> conda env export --from-history>environment.txt
+

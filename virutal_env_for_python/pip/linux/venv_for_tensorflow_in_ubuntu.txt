@@ -1,0 +1,45 @@
+ 
+# To install/setup tensorflow in virtualenv in ubuntu:
+
+
+    # (One time setup command): At first install python-venv:
+        ==> SYNTAX: sudo apt install pythonversion-venv
+        ==> eg: sudo apt install python3.10-venv
+
+
+    # Create the virutal environment folder
+        ==> python3 -m venv virtual_env_folder
+
+
+    # Activate virtual environment:
+    
+        SYNTAX : ==> source virtual_env_folder/bin/activate
+        eg: source jupyter_env/bin/activate
+        
+
+        NOTE: (Which Python) For checking currently which python is available:
+            ==> which python
+
+        # For installing jupyter notebook:
+            ==> python -m pip install jupyter
+
+        # for setting up seperate python kernel for virtual env:
+            ==> python -m ipykernel install --user --name=virtual_env_folder
+            ==> eg: python -m ipykernel install --user --name=venv
+
+            NOTE: Here in this example, venv is my virtual_env_folder so i have written venv, but if you have different name, then write that name instead of venv.
+
+
+        # For installing Tensorflow latest version:
+            ==> pip install tensorflow
+
+            NOTE: (Optional Error case) If auto termination/closing of terminal happens. 
+            So, to overcome that issue/error:
+                ==> pip install tensorflow --no-cache-dir
+
+        
+        Now, To execute/run jupyter notebook server in port 8888 tree:
+                ==> jupyter notebook
+    
+
+    Wallah !
