@@ -1,9 +1,10 @@
-# app/main.py
 
 from fastapi import FastAPI
 
-app = FastAPI()
+app = FastAPI()  # Initialize FastAPI app
 
-@app.get("/")
-def read_root():
+# Define a simple route
+@app.get("/")   
+def read_root(): 
     return {"message": "FastAPI Chat App is running!"}
+
