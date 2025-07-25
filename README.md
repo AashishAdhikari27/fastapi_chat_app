@@ -14,17 +14,29 @@ A secure, real-time chat system built with **FastAPI**, featuring:
 
 fastapi_chat_app/
 ├── .env # Environment variables
+
 ├── app/ # Application source code
+
 │ ├── init.py # Package initialization
+
 │ ├── config.py # ✅ Group B: Configuration settings
+
 │ ├── database.py # ✅ Group B: Database connection
+
 │ ├── models.py # ✅ Group B: Database models (User, Room, Message)
+
 │ ├── schemas.py # ✅ Group A & B: Pydantic schemas
+
 │ ├── auth.py # ✅ Group A: Authentication (JWT, password hashing)
+
 │ ├── dependencies.py # ✅ Group A: Role-based access (RBAC)
+
 │ ├── chat_websockets.py # ✅ Group A: WebSocket chat handling
+
 │ └── main.py # ✅ Group A & B: FastAPI app entrypoint
+
 ├── venv/ # Virtual environment (created during setup)
+
 └── README.md # Project documentation
 
 
