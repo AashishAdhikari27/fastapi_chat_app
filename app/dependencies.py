@@ -1,46 +1,45 @@
 from fastapi import Depends, HTTPException, status
-from fastapi.security import OAuth2PasswordBearer
-from jose import JWTError, jwt
-from pydantic import BaseModel
-from typing import Optional
-import os
-from dotenv import load_dotenv
+from .auth import decode_token
+from sqlmodel import Session, select
+from .database import engine
+from .models import User
 
-load_dotenv()
+def get_current_user(token: str):
+    if not token:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Missing token"
+        )
+        
+    payload = decode_token(token)
+    if not payload:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid token"
+        )
+    
+    username = payload.get("sub")
+    if not username:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid token payload"
+        )
+    
+    with Session(engine) as session:
+        user = session.exec(select(User).where(User.username == username)).first()
+        if not user:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail="User not found"
+            )
+        return user
 
-SECRET_KEY = os.getenv("JWT_SECRET_KEY").strip('"')
-ALGORITHM = os.getenv("JWT_ALGORITHM", "HS256")
-
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="login")
-
-class TokenData(BaseModel):
-    username: Optional[str] = None
-    role: Optional[str] = None
-
-def get_current_user_role(token: str = Depends(oauth2_scheme)) -> str:
-    credentials_exception = HTTPException(
-        status_code=status.HTTP_401_UNAUTHORIZED,
-        detail="Could not validate credentials",
-        headers={"WWW-Authenticate": "Bearer"},
-    )
-    try:
-        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
-        username: str = payload.get("sub")
-        role: str = payload.get("role")
-        if username is None or role is None:
-            raise credentials_exception
-        token_data = TokenData(username=username, role=role)
-    except JWTError:
-        raise credentials_exception
-
-    return token_data.role
-
-def require_role(required_role: str):
-    def role_checker(role: str = Depends(get_current_user_role)):
-        if role != required_role:
+def role_required(required_role: str):
+    def role_checker(user: User = Depends(get_current_user)):
+        if user.role != required_role:
             raise HTTPException(
                 status_code=status.HTTP_403_FORBIDDEN,
-                detail=f"Operation requires {required_role} privileges",
+                detail="Insufficient permissions"
             )
-        return True
+        return user
     return role_checker
