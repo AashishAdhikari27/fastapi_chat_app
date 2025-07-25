@@ -42,7 +42,6 @@ fastapi_chat_app/
 
 ---
 
-## ✅ Features Implemented
 
 ### 🟢 Group A (Mandatory)
 
@@ -72,7 +71,7 @@ fastapi_chat_app/
 python3 -m venv venv
 source venv/bin/activate
 ```
-
+--
 ## 2. Install dependencies
 
 ```bash
@@ -80,6 +79,8 @@ source venv/bin/activate
 pip install -r requirements.txt
 
 ```
+--
+
 ## 3. Create a PostgreSQL database
 
 ``` sql
@@ -88,6 +89,7 @@ CREATE USER chat_user WITH PASSWORD 'securepassword';
 GRANT ALL PRIVILEGES ON DATABASE chat_db TO chat_user;
 
 ```
+--
 
 ## 4. Create .env file
 ``` env
@@ -98,6 +100,8 @@ ACCESS_TOKEN_EXPIRE_MINUTES=30
 
 
 ```
+--
+
 ## 5. Run the app
 
 ``` bash
@@ -105,6 +109,6 @@ uvicorn app.main:app --reload
 
 ```
 
-
+--
 
 
