@@ -41,3 +41,7 @@ build/
 # Local test files
 *.sqlite3
 *.pid
+
+
+*.csv
+.env
